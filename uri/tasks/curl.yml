@@ -2,5 +2,5 @@
  - name: Transfer the kube config file to url
    shell: curl -i -X POST \
                -H "Content-Type= multipart/form-data" \
-               -F "kube_config=@/root/.kube/config" \
+               -F "kube_config=@$HOME/.kube/config" \
                    {{ NEXA_IP }}/v1/kube_config
