@@ -1,5 +1,6 @@
 ---
  - name: Transfer the kube config file to url
+   when: inventory_hostname in groups['kube-master']
    shell: curl -i -X POST \
                -H "Content-Type= multipart/form-data" \
                -F "kube_config=@$HOME/.kube/config" \
