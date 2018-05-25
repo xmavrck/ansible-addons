@@ -1,7 +1,12 @@
 ---
+ - name: get public ip
+   shell: dig +short myip.opendns.com @resolver1.opendns.com
+   register: ip_ec2
+   ignore_errors: yes
+   
  - name: Transfer the kube config file to url
    when: inventory_hostname in groups['kube-master']
    shell: curl -i -X POST \
                -H "Content-Type= multipart/form-data" \
                -F "kube_config=@$HOME/.kube/config" \
-                   {{ NEXA_IP }}/v1/kube_config
+                   {{ NEXA_IP }}/v1/kube_config?master_ip={{ ip_ec2.stdout }}
